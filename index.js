@@ -69,7 +69,7 @@ const transform = () => (files, metalsmith, done) => {
 };
 
 const jdown = dir => new Promise((resolve, reject) => {
-	metalsmith(__dirname)
+	metalsmith(__dirname.replace('/node_modules/jdown', ''))
 		.source(dir)
 		.use(markdown())
 		.use(transform())
