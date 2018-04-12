@@ -1,0 +1,36 @@
+{
+		"name": "jdown",
+		"description": "Convert a directory of markdown files to structured and usable JSON",
+		"author": "Dan Webb <mail@danwebb.co>",
+		"version": "0.0.0",
+		"homepage": "https://github.com/DanWebb/jdown#readme",
+		"repository": {
+				"type": "git",
+				"url": "https://github.com/DanWebb/jdown.git"
+		},
+		"bugs": {
+				"url": "https://github.com/DanWebb/jdown/issues"
+		},
+		"keywords": [
+				"markdown",
+				"json",
+				"javascript",
+				"content",
+				"static-site"
+		],
+		"main": "src/index.js",
+		"license": "MIT",
+		"scripts": {
+			"example": "node example"
+		},
+		"dependencies": {
+				"metalsmith": "2.3.0",
+				"metalsmith-auto-collections": "0.1.4",
+				"metalsmith-markdown": "0.2.2",
+				"camelcase": "5.0.0"
+		},
+		"devDependencies": {
+				"serve": "^6.1.0",
+				"xo": "^0.20"
+		}
+}
