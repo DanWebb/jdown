@@ -34,7 +34,7 @@ jdown('path/to/markdown/content').then(content => console.log('content'));
 
 Where "path/to/markdown/content" is a directory containing markdown files or folders as described under the "Features" header above. The file path will be relative to the project root so if your content was in /Users/username/project/src/content, you would use `jdown('src/content')`.
 
-Use the generated JSON however you like, I recommend with a static site generator like [React Static](https://github.com/nozzle/react-static)!
+Use the generated JSON however you like, I recommend with a static site generator like [React Static](https://github.com/nozzle/react-static)! This way you can use the markdown files as a CMS and use the JSON in the build stage.
 
 ## Examples
 
