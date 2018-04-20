@@ -42,6 +42,8 @@ See the [examples](example/) directory of this repository. To test it yourself c
 
 [danwebb.co](https://danwebb.co) is built using jdown and [React Static](https://github.com/nozzle/react-static) so see the static.config.js file in the [websites github repo](https://github.com/DanWebb/danwebb.co) for a real world example.
 
+There is also an example built into React Static that you can use to quickly get up and running  [here](https://github.com/nozzle/react-static/tree/master/examples/markdown). 
+
 ## License
 
 MIT
