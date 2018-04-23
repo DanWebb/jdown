@@ -1,3 +1,4 @@
+const path = require('path');
 const metalsmith = require('metalsmith');
 const markdown = require('metalsmith-markdown');
 const camelCase = require('camelcase');
@@ -69,7 +70,7 @@ const transform = () => (files, metalsmith, done) => {
 };
 
 const jdown = dir => new Promise((resolve, reject) => {
-	metalsmith(__dirname.replace('/node_modules/jdown', ''))
+	metalsmith(path.resolve())
 		.source(dir)
 		.use(markdown())
 		.use(transform())
