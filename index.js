@@ -10,7 +10,7 @@ const transformFileContents = (files, file) => {
 };
 
 const transformFileNames = (files, file) => {
-	const parts = file.split('/');
+	const parts = file.split(/\\|\//);
 	let fileName = camelCase(parts.pop().replace('.html', ''));
 
 	if (parts[0]) {
@@ -23,7 +23,7 @@ const transformFileNames = (files, file) => {
 };
 
 const addToCollection = (files, file) => {
-	const parts = file.split('/');
+	const parts = file.split(/\\|\//);
 
 	if (parts[0] !== 'collections' || !parts[1] || !parts[2]) {
 		return false;
@@ -39,7 +39,7 @@ const addToCollection = (files, file) => {
 };
 
 const addToGroup = (files, file) => {
-	const parts = file.split('/');
+	const parts = file.split(/\\|\//);
 
 	if (!parts[1] || parts[2]) {
 		return false;
