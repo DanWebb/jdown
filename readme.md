@@ -1,7 +1,7 @@
 <h1 align="center">
 	<br>
 	<br>
-	<img width="200" src="https://raw.githubusercontent.com/DanWebb/jdown/2b4d38b7c56103a38b74c4c49ad8e6f576744c26/media/logo.png" alt="chalk">
+	<img width="200" src="https://raw.githubusercontent.com/DanWebb/jdown/2b4d38b7c56103a38b74c4c49ad8e6f576744c26/media/logo.png" alt="jdown">
 	<br>
 	<br>
 </h1>
