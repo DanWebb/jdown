@@ -21,13 +21,14 @@
 		"main": "src/index.js",
 		"license": "MIT",
 		"scripts": {
-			"example": "node example"
+				"example": "node example",
+				"withCustomRender": "node 'example/withCustomRenderer.js'"
 		},
 		"dependencies": {
+				"camelcase": "5.0.0",
 				"metalsmith": "2.3.0",
 				"metalsmith-auto-collections": "0.1.4",
-				"metalsmith-markdown": "0.2.2",
-				"camelcase": "5.0.0"
+				"metalsmith-markdown": "0.2.2"
 		},
 		"devDependencies": {
 				"serve": "^6.1.0",

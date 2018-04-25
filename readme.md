@@ -36,13 +36,29 @@ Where "path/to/markdown/content" is a directory containing markdown files or fol
 
 Use the generated JSON however you like, I recommend with a static site generator like [React Static](https://github.com/nozzle/react-static)! This way you can use the markdown files as a CMS and use the JSON in the build stage.
 
+## Custom renderers
+
+By default, jdown uses the default [marked](https://github.com/markedjs/marked) renderer, but you may pass in your own custom overrides to customize the built html. This can be useful for adding custom ids or CSS classes. In the example below you can see how you can make your links open in a new tab by default, by adding target="\_blank" to anchor tags. 
+
+```js
+const jdown = require('jdown');
+const renderer = {
+	link: (href, title, text) => {
+	  return `<a target="_blank" href="${href}" title="${title}">${text}</a>`
+	}
+};
+
+jdown('path/to/markdown/content', renderer).then(content => console.log(content));
+
+```
+
 ## Examples
 
 See the [examples](example/) directory of this repository. To test it yourself clone this repo, install the dependancies with `npm install`, modify some content and run `npm run example`.
 
 [danwebb.co](https://danwebb.co) is built using jdown and [React Static](https://github.com/nozzle/react-static) so see the static.config.js file in the [websites github repo](https://github.com/DanWebb/danwebb.co) for a real world example.
 
-There is also an example built into React Static that you can use to quickly get up and running  [here](https://github.com/nozzle/react-static/tree/master/examples/markdown). 
+There is also an example built into React Static that you can use to quickly get up and running  [here](https://github.com/nozzle/react-static/tree/master/examples/markdown).
 
 ## License
 
