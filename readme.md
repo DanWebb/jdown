@@ -38,19 +38,17 @@ Use the generated JSON however you like, I recommend with a static site generato
 
 ## Custom renderers
 
-By default, jdown uses the default [marked](https://github.com/markedjs/marked) renderer, but you may pass in your own custom overrides to customize the built html. This can be useful for adding custom ids or CSS classes. In the example below you can see how you can make your links open in a new tab by default, by adding target="\_blank" to anchor tags. 
+By default, jdown uses the default [marked](https://github.com/markedjs/marked) renderer, but you may pass in your own custom overrides to customize the built html. This can be useful for adding custom ids or CSS classes. In the example below you can see how you can make your links open in a new tab by default, by adding target="\_blank" to anchor tags.
 
 ```js
 const jdown = require('jdown');
-const renderer = {
-	link: (href, title, text) => {
-	  return `<a target="_blank" href="${href}" title="${title}">${text}</a>`
-	}
-};
+const marked = require('marked');
+const renderer = new marked.Renderer();
+renderer.link = (href, title, text) => `<a target="_blank" href="${href}" title="${title}">${text}</a>`;
 
-jdown('path/to/markdown/content', renderer).then(content => console.log(content));
-
+jdown('path/to/markdown/content', {renderer}).then(content => console.log(content));
 ```
+See the [advanced configurations](https://github.com/markedjs/marked/blob/master/docs/USING_ADVANCED.md) and [extensibility](https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md) sections of the marked documentation for the full list of possible options you may use here.
 
 ## Examples
 

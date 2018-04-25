@@ -2,7 +2,6 @@ const path = require('path');
 const metalsmith = require('metalsmith');
 const markdown = require('metalsmith-markdown');
 const camelCase = require('camelcase');
-const marked = require('marked')
 
 const transformFileContents = (files, file) => {
 	files[file].contents = files[file].contents.toString('utf8');
@@ -70,25 +69,19 @@ const transform = () => (files, metalsmith, done) => {
 	done();
 };
 
-let renderer = new marked.Renderer({
-	/* default options */
-  smartypants: true,
-  smartLists: true,
-  gfm: true,
-  tables: true,
-  breaks: false,
-  sanitize: false,
-});
+const defaultOptions = {
+	smartypants: true,
+	smartLists: true,
+	gfm: true,
+	tables: true,
+	breaks: false,
+	sanitize: false
+};
 
-const jdown = (dir, customRenderFunctions = {}) => new Promise((resolve, reject) => {
-	Object.keys(customRenderFunctions).map(key => {
-		if (typeof customRenderFunctions[key] === 'function') {
-			renderer[key] = customRenderFunctions[key];
-		}
-	});
+const jdown = (dir, options = {}) => new Promise((resolve, reject) => {
 	metalsmith(path.resolve())
 		.source(dir)
-		.use(markdown({renderer}))
+		.use(markdown(Object.assign(defaultOptions, options)))
 		.use(transform())
 		.process((err, files) => {
 			if (err) {
