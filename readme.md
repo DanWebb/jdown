@@ -36,9 +36,9 @@ Where "path/to/markdown/content" is a directory containing markdown files or fol
 
 Use the generated JSON however you like, I recommend with a static site generator like [React Static](https://github.com/nozzle/react-static)! This way you can use the markdown files as a CMS and use the JSON in the build stage.
 
-## Custom renderers
+## Custom options
 
-By default, jdown uses the default [marked](https://github.com/markedjs/marked) renderer, but you may pass in your own custom overrides to customize the built html. This can be useful for adding custom ids or CSS classes. In the example below you can see how you can make your links open in a new tab by default, by adding target="\_blank" to anchor tags.
+By default, jdown uses the default [marked](https://github.com/markedjs/marked) render options, but you may pass in your own custom overrides to customize the built html. This can be useful for adding custom ids or CSS classes. In the example below you can see how you can make your links open in a new tab by default, by adding target="\_blank" to anchor tags.
 
 ```js
 const jdown = require('jdown');
