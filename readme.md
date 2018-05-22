@@ -14,7 +14,7 @@
 🗂 Files contained within folders of the collections directory will be turned into an array of objects.  
 🐫 File names will be transformed to [camelCase](https://github.com/sindresorhus/camelcase) and used as property names  
 ✍️ Markdown will be parsed as HTML using [Metalsmith Markdown](https://github.com/segmentio/metalsmith-markdown) and output within a `contents` property.  
-🕹 Frontmatter will be added as properties of the generated objects.
+🕹 Frontmatter will be added as properties of the generated objects.  
 💅 Add custom renderer options
 
 <br>
