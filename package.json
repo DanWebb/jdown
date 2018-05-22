@@ -22,7 +22,16 @@
 		"license": "MIT",
 		"scripts": {
 				"example": "node example",
-				"example-two": "node example/with-custom-options.js"
+				"example-two": "node example/with-custom-options.js",
+				"test": "ava"
+		},
+		"ava": {
+			"files": ["test/test.js"]
+		},
+		"xo": {
+			"rules": {
+				"ava/no-ignored-test-files": false
+			}
 		},
 		"dependencies": {
 				"camelcase": "5.0.0",
@@ -31,8 +40,9 @@
 				"metalsmith-markdown": "0.2.2"
 		},
 		"devDependencies": {
+				"ava": "1.0.0-beta.4",
 				"marked": "0.3.19",
-				"serve": "^6.1.0",
+				"serve": "6.5.7",
 				"xo": "^0.20"
 		}
 }

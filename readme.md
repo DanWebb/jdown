@@ -9,7 +9,7 @@
 > Convert a directory of markdown files to structured and usable JSON
 
 ## Features
-📄 Top level files will turned into an object  
+📄 Top level files will be turned into an object  
 📁 Files contained within top level directories will be grouped into an object  
 🗂 Files contained within folders of the collections directory will be turned into an array of objects.  
 🐫 File names will be transformed to [camelCase](https://github.com/sindresorhus/camelcase) and used as property names  
