@@ -15,6 +15,7 @@
 🐫 File names will be transformed to [camelCase](https://github.com/sindresorhus/camelcase) and used as property names  
 ✍️ Markdown will be parsed as HTML using [Metalsmith Markdown](https://github.com/segmentio/metalsmith-markdown) and output within a `contents` property.  
 🕹 Frontmatter will be added as properties of the generated objects.
+💅 Add custom renderer options
 
 <br>
 <img src="https://raw.githubusercontent.com/DanWebb/jdown/2b4d38b7c56103a38b74c4c49ad8e6f576744c26/media/example.jpg" alt="" width="900">
@@ -36,7 +37,7 @@ Where "path/to/markdown/content" is a directory containing markdown files or fol
 
 Use the generated JSON however you like, I recommend with a static site generator like [React Static](https://github.com/nozzle/react-static)! This way you can use the markdown files as a CMS and use the JSON in the build stage.
 
-## Custom options
+## Custom render options
 
 By default, jdown uses the default [marked](https://github.com/markedjs/marked) render options, but you may pass in your own custom overrides to customize the built html. This can be useful for adding custom ids or CSS classes. In the example below you can see how you can make your links open in a new tab by default, by adding target="\_blank" to anchor tags.
 
