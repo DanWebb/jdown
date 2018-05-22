@@ -59,6 +59,10 @@ See the [examples](example/) directory of this repository. To test it yourself c
 
 There is also an example built into React Static that you can use to quickly get up and running  [here](https://github.com/nozzle/react-static/tree/master/examples/markdown).
 
+## Contributing
+
+Any pull requests are welcome and will be reviewed. Please use `npm run test` to test your changes are working before submitting any changes.
+
 ## License
 
 MIT
