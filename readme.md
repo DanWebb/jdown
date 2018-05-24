@@ -15,7 +15,8 @@
 🐫 File names will be transformed to [camelCase](https://github.com/sindresorhus/camelcase) and used as property names  
 ✍️ Markdown will be parsed as HTML using [Metalsmith Markdown](https://github.com/segmentio/metalsmith-markdown) and output within a `contents` property.  
 🕹 Frontmatter will be added as properties of the generated objects.  
-💅 Add custom renderer options
+💅 Add custom renderer options  
+🔧 Optionally disable markdown parsing to just recieve structured JSON containing markdown  
 
 <br>
 <img src="https://raw.githubusercontent.com/DanWebb/jdown/2b4d38b7c56103a38b74c4c49ad8e6f576744c26/media/example.jpg" alt="" width="900">
@@ -50,6 +51,13 @@ renderer.link = (href, title, text) => `<a target="_blank" href="${href}" title=
 jdown('path/to/markdown/content', {renderer}).then(content => console.log(content));
 ```
 See the [advanced configurations](https://github.com/markedjs/marked/blob/master/docs/USING_ADVANCED.md) and [extensibility](https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md) sections of the marked documentation for the full list of possible options you may use here.
+
+## Disabling markdown parsing
+
+In some cases you may wish to disable markdown parsing to just recieve structured JSON containing markdown instead of HTML. You can accomplish this using the `parseMd` option like so:
+```js
+jdown('path/to/markdown/content', {parseMd: false}).then(content => console.log(content));
+```
 
 ## Examples
 

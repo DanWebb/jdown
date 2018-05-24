@@ -44,3 +44,9 @@ test('Frontmatter will be added as properties of the generated objects', t => {
 test('Supports custom renderers', t => {
 	t.is(t.context.content.about.contents, '<h1 class="a-header">parsed markdown</h1>');
 });
+
+test('Supports disabling markdown parsing', async t => {
+	const content = await jdown('test/content', {parseMd: false});
+	t.false(/<[a-z][\s\S]*>/i.test(content.about.contents));
+	t.true(content.about.contents.indexOf('#') > -1);
+});

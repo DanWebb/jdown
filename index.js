@@ -11,7 +11,7 @@ const transformFileContents = (files, file) => {
 
 const transformFileNames = (files, file) => {
 	const parts = file.split(/\\|\//);
-	let fileName = camelCase(parts.pop().replace('.html', ''));
+	let fileName = camelCase(parts.pop().replace('.html', '').replace('.md', ''));
 
 	if (parts[0]) {
 		fileName = `${parts.join('/')}/${fileName}`;
@@ -75,13 +75,20 @@ const defaultOptions = {
 	gfm: true,
 	tables: true,
 	breaks: false,
-	sanitize: false
+	sanitize: false,
+	parseMd: true
 };
 
 const jdown = (dir, options = {}) => new Promise((resolve, reject) => {
-	metalsmith(path.resolve())
-		.source(dir)
-		.use(markdown(Object.assign(defaultOptions, options)))
+	const content = metalsmith(path.resolve()).source(dir);
+	options = Object.assign(defaultOptions, options);
+
+	if (options.parseMd) {
+		delete options.parseMd;
+		content.use(markdown(options));
+	}
+
+	content
 		.use(transform())
 		.process((err, files) => {
 			if (err) {

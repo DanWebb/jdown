@@ -2,7 +2,7 @@
 		"name": "jdown",
 		"description": "Convert a directory of markdown files to structured and usable JSON",
 		"author": "Dan Webb <mail@danwebb.co>",
-		"version": "0.4.0",
+		"version": "0.5.0",
 		"homepage": "https://github.com/DanWebb/jdown#readme",
 		"repository": {
 				"type": "git",
@@ -22,7 +22,8 @@
 		"license": "MIT",
 		"scripts": {
 				"example": "node example",
-				"example-two": "node example/with-custom-options.js",
+				"example-with-renderer": "node example/with-custom-options.js",
+				"example-without-md-parse": "node example/without-md-parsing.js",
 				"test": "ava"
 		},
 		"ava": {
