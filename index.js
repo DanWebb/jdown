@@ -81,7 +81,7 @@ const defaultOptions = {
 
 const jdown = (dir, options = {}) => new Promise((resolve, reject) => {
 	const content = metalsmith(path.resolve()).source(dir);
-	options = Object.assign(defaultOptions, options);
+	options = {...defaultOptions, ...options};
 
 	if (options.parseMd) {
 		delete options.parseMd;
