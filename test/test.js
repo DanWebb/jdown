@@ -5,7 +5,7 @@ import marked from 'marked';
 test.before(async t => {
 	const renderer = new marked.Renderer();
 	renderer.heading = (text, level) => `<h${level} class="a-header">${text}</h${level}>`;
-	t.context.content = await jdown('test/content', {renderer});
+	t.context.content = await jdown('test/content-without-images', {renderer});
 	return Promise.resolve(true);
 });
 
@@ -46,7 +46,7 @@ test('Supports custom renderers', t => {
 });
 
 test('Supports disabling markdown parsing', async t => {
-	const content = await jdown('test/content', {parseMd: false});
+	const content = await jdown('test/content-without-images', {parseMd: false});
 	t.false(/<[a-z][\s\S]*>/i.test(content.about.contents));
 	t.true(content.about.contents.indexOf('#') > -1);
 });

@@ -4,6 +4,3 @@ draft: true
 ---
 
 # parsed markdown
-
-![](./images/logo.png)
-![](./images/logo.svg)

@@ -5,3 +5,5 @@ bool: true
 ---
 
 content...
+
+![](./images/example.jpg)
