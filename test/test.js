@@ -1,11 +1,15 @@
+import fs from 'fs';
+import util from 'util';
 import test from 'ava';
-import jdown from '..';
 import marked from 'marked';
+import jdown from '../src';
+
+const readDir = util.promisify(fs.readdir);
 
 test.before(async t => {
 	const renderer = new marked.Renderer();
 	renderer.heading = (text, level) => `<h${level} class="a-header">${text}</h${level}>`;
-	t.context.content = await jdown('test/content-without-images', {renderer});
+	t.context.content = await jdown('test/content', {renderer, assets: {output: './test/public'}});
 	return Promise.resolve(true);
 });
 
@@ -42,11 +46,56 @@ test('Frontmatter will be added as properties of the generated objects', t => {
 });
 
 test('Supports custom renderers', t => {
-	t.is(t.context.content.about.contents, '<h1 class="a-header">parsed markdown</h1>');
+	t.true(t.context.content.about.contents.indexOf('h1 class="a-header"') > -1);
 });
 
 test('Supports disabling markdown parsing', async t => {
 	const content = await jdown('test/content-without-images', {parseMd: false});
 	t.false(/<[a-z][\s\S]*>/i.test(content.about.contents));
 	t.true(content.about.contents.indexOf('#') > -1);
+});
+
+test('Assets are optional', async t => {
+	const content = await jdown('test/content-without-images');
+	t.true(/<[a-z][\s\S]*>/i.test(content.about.contents));
+});
+
+test('All assets are created with expected names', async t => {
+	const assets = await readDir('./test/public/content');
+	const totalExpectedAssets = 6;
+	let actualAssets = 0;
+	const logoPng = /logo-\d+.png/;
+	const logoSvg = /logo-\d+.svg/;
+	const workLogo = /work-logo-\d+.png/;
+	const homeLogo = /home-logo-\d+.png/;
+	const example = /journal-example-\d+.jpg/;
+	const workExample = /work-example-\d+.jpg/;
+
+	assets.forEach(asset => {
+		if (
+			asset.match(logoPng) ||
+			asset.match(logoSvg) ||
+			asset.match(workLogo) ||
+			asset.match(homeLogo) ||
+			asset.match(example) ||
+			asset.match(workExample)
+		) {
+			actualAssets += 1;
+		}
+	});
+
+	t.true(totalExpectedAssets === actualAssets);
+});
+
+test('Assets are output with correct file paths', t => {
+	const {about, home, journal, work} = t.context.content;
+	const hasPath = (content, path) => content.match(path);
+
+	t.true(hasPath(about.contents, /\/public\/logo-\d+.png/g).length === 1);
+	t.true(hasPath(about.contents, /\/public\/logo-\d+.svg/g).length === 1);
+	t.true(hasPath(home.anotherSection.contents, /\/public\/home-logo-\d+.png/g).length === 2);
+	t.true(hasPath(home.introduction.contents, /\/public\/logo-\d+.svg/g).length === 1);
+	t.true(hasPath(journal[0].contents, /\/public\/journal-example-\d+.jpg/g).length === 1);
+	t.true(hasPath(work[0].contents, /\/public\/work-example-\d+.jpg/g).length === 1);
+	t.true(hasPath(work[0].contents, /\/public\/work-logo-\d+.png/g).length === 1);
 });

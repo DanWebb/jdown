@@ -5,4 +5,4 @@ createdAt: 01/02/2019
 
 content...
 
-![](./images/example-two.jpg)
+![](./assets/example.jpg)

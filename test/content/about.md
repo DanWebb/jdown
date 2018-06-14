@@ -5,5 +5,5 @@ draft: true
 
 # parsed markdown
 
-![](./images/logo.png)
-![](./images/logo.svg)
+![](./assets/logo.png)
+![](./assets/logo.svg)

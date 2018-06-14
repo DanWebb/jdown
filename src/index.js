@@ -2,7 +2,7 @@ const path = require('path');
 const metalsmith = require('metalsmith');
 const markdown = require('metalsmith-markdown');
 const camelCase = require('camelcase');
-const transformImages = require('./transform-images');
+const transformAssets = require('./transform-assets');
 
 const transformFileContents = (files, file) => {
 	files[file].contents = files[file].contents.toString('utf8');
@@ -55,8 +55,8 @@ const addToGroup = (files, file) => {
 	return true;
 };
 
-const transform = ({dir, asset}) => async (files, metalsmith, done) => {
-	const images = transformImages(dir, asset);
+const transform = ({dir, assets}) => async (files, metalsmith, done) => {
+	const asset = transformAssets(dir, assets);
 
 	Object.keys(files).forEach(file => {
 		if (file.indexOf('.DS_Store') > -1) {
@@ -64,8 +64,8 @@ const transform = ({dir, asset}) => async (files, metalsmith, done) => {
 			return;
 		}
 
-		if (file.indexOf('images/') > -1) {
-			images.add(file);
+		if (file.indexOf('assets/') > -1) {
+			asset.add(file);
 			delete files[file];
 			return;
 		}
@@ -80,8 +80,8 @@ const transform = ({dir, asset}) => async (files, metalsmith, done) => {
 		}
 	});
 
-	if (images.found) {
-		files = await images.process(files);
+	if (asset.found) {
+		files = await asset.process(files);
 	}
 
 	done();
@@ -95,7 +95,7 @@ const defaultOptions = {
 	breaks: false,
 	sanitize: false,
 	parseMd: true,
-	asset: {
+	assets: {
 		output: './public',
 		path: '/public',
 		png: {quality: '65-80'}
@@ -105,7 +105,7 @@ const defaultOptions = {
 const jdown = (dir, options = {}) => new Promise((resolve, reject) => {
 	const content = metalsmith(path.resolve()).source(dir);
 	options = {...defaultOptions, ...options};
-	options.asset = {...defaultOptions.asset, ...options.asset};
+	options.assets = {...defaultOptions.assets, ...options.assets};
 
 	if (options.parseMd) {
 		delete options.parseMd;

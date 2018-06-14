@@ -6,4 +6,4 @@ bool: true
 
 content...
 
-![](./images/example.jpg)
+![](./assets/example.jpg)

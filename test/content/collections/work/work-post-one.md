@@ -1,4 +1,4 @@
 work post one...
 
-![](./images/work-example.jpg)
-![](./images/work-logo.png)
+![](./assets/example.jpg)
+![](./assets/logo.png)

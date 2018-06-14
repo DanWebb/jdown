@@ -5,4 +5,4 @@ draft: true
 
 # parsed markdown
 
-![](./images/example.jpg)
+![](./assets/example.jpg)
