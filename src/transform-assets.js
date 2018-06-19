@@ -5,6 +5,8 @@ const rimraf = require('rimraf');
 const imagemin = require('imagemin');
 const imageminPngquant = require('imagemin-pngquant');
 const imageminJpegtran = require('imagemin-jpegtran');
+const imageminGifsicle = require('imagemin-gifsicle');
+const imageminSvgo = require('imagemin-svgo');
 const camelCase = require('camelcase');
 
 const mkdir = promisify(fs.mkdir);
@@ -27,7 +29,9 @@ const transformAssets = (contentDir, asset) => {
 	const minify = () => imagemin(paths, '', {
 		plugins: [
 			imageminPngquant(asset.png),
-			imageminJpegtran()
+			imageminJpegtran(asset.jpg),
+			imageminGifsicle(asset.gif),
+			imageminSvgo(asset.svg)
 		]
 	});
 
