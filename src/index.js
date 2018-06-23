@@ -97,7 +97,7 @@ const defaultOptions = {
 	parseMd: true,
 	assets: {
 		output: './public',
-		path: '/public',
+		path: '/',
 		png: {quality: '65-80'}
 	}
 };

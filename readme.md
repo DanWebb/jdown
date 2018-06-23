@@ -84,7 +84,7 @@ The assets options object can contain the following properties:
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | output | string | ./public | Directory jdown will output processed assets to |
-| path | string | /public | Publically accessible path jdown will prepend to output file names |
+| path | string | / | Publically accessible path jdown will prepend to output file names |
 | png | object | `{quality: '65-80'}` | Options to pass into [imagemin-pngquant](https://www.npmjs.com/package/imagemin-pngquant) |
 | jpg | object | undefined | Options to pass into [imagemin-jpegtran](https://www.npmjs.com/package/imagemin-jpegtran) |
 | svg | object | undefined | Options to pass into [imagemin-svgo](https://www.npmjs.com/package/imagemin-svgo) |
