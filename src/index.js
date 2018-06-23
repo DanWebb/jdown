@@ -2,6 +2,7 @@ const path = require('path');
 const metalsmith = require('metalsmith');
 const markdown = require('metalsmith-markdown');
 const camelCase = require('camelcase');
+const transformAssets = require('./transform-assets');
 
 const transformFileContents = (files, file) => {
 	files[file].contents = files[file].contents.toString('utf8');
@@ -54,8 +55,21 @@ const addToGroup = (files, file) => {
 	return true;
 };
 
-const transform = () => (files, metalsmith, done) => {
+const transform = ({dir, assets}) => async (files, metalsmith, done) => {
+	const asset = transformAssets(dir, assets);
+
 	Object.keys(files).forEach(file => {
+		if (file.indexOf('.DS_Store') > -1) {
+			delete files[file];
+			return;
+		}
+
+		if (file.indexOf('assets/') > -1) {
+			asset.add(file);
+			delete files[file];
+			return;
+		}
+
 		transformFileContents(files, file);
 		file = transformFileNames(files, file);
 
@@ -65,6 +79,10 @@ const transform = () => (files, metalsmith, done) => {
 			addToGroup(files, file);
 		}
 	});
+
+	if (asset.found) {
+		files = await asset.process(files);
+	}
 
 	done();
 };
@@ -76,12 +94,18 @@ const defaultOptions = {
 	tables: true,
 	breaks: false,
 	sanitize: false,
-	parseMd: true
+	parseMd: true,
+	assets: {
+		output: './public',
+		path: '/public',
+		png: {quality: '65-80'}
+	}
 };
 
 const jdown = (dir, options = {}) => new Promise((resolve, reject) => {
 	const content = metalsmith(path.resolve()).source(dir);
 	options = {...defaultOptions, ...options};
+	options.assets = {...defaultOptions.assets, ...options.assets};
 
 	if (options.parseMd) {
 		delete options.parseMd;
@@ -89,7 +113,7 @@ const jdown = (dir, options = {}) => new Promise((resolve, reject) => {
 	}
 
 	content
-		.use(transform())
+		.use(transform({dir, ...options}))
 		.process((err, files) => {
 			if (err) {
 				return reject(err);

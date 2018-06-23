@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="456" height="246" viewBox="0 0 456 246">
+  <g fill="none" fill-rule="evenodd">
+    <rect width="456" height="246" fill="#F7DF1E" rx="5"/>
+    <text fill="#101010" font-family="NeutraText-Bold, Neutra Text" font-size="288" font-weight="bold" letter-spacing="1.754">
+      <tspan x="71" y="218">J</tspan>
+    </text>
+    <rect width="41" height="146" x="294" y="22" fill="#101010"/>
+    <polygon fill="#101010" points="314.875 220.586 245.105 135.094 386.535 135.094"/>
+  </g>
+</svg>
