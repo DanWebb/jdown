@@ -64,7 +64,7 @@ const transform = ({dir, assets}) => async (files, metalsmith, done) => {
 			return;
 		}
 
-		if (file.indexOf('assets/') > -1) {
+		if (file.indexOf(`assets${path.sep}`) > -1) {
 			asset.add(file);
 			delete files[file];
 			return;
@@ -96,8 +96,8 @@ const defaultOptions = {
 	sanitize: false,
 	parseMd: true,
 	assets: {
-		output: './public',
-		path: '/',
+		output: `.${path.sep}public`,
+		path: path.sep,
 		png: {quality: '65-80'}
 	}
 };

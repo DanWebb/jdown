@@ -91,11 +91,11 @@ test('Assets are output with correct file paths', t => {
 	const {about, home, journal, work} = t.context.content;
 	const hasPath = (content, path) => content.match(path);
 
-	t.true(hasPath(about.contents, /\/public\/logo-\d+.png/g).length === 1);
-	t.true(hasPath(about.contents, /\/public\/logo-\d+.svg/g).length === 1);
-	t.true(hasPath(home.anotherSection.contents, /\/public\/home-logo-\d+.png/g).length === 2);
-	t.true(hasPath(home.introduction.contents, /\/public\/logo-\d+.svg/g).length === 1);
-	t.true(hasPath(journal[0].contents, /\/public\/journal-example-\d+.jpg/g).length === 1);
-	t.true(hasPath(work[0].contents, /\/public\/work-example-\d+.jpg/g).length === 1);
-	t.true(hasPath(work[0].contents, /\/public\/work-logo-\d+.png/g).length === 1);
+	t.true(hasPath(about.contents, /\/content\/logo-\d+.png/g).length === 1);
+	t.true(hasPath(about.contents, /\/content\/logo-\d+.svg/g).length === 1);
+	t.true(hasPath(home.anotherSection.contents, /\/content\/home-logo-\d+.png/g).length === 2);
+	t.true(hasPath(home.introduction.contents, /\/content\/logo-\d+.svg/g).length === 1);
+	t.true(hasPath(journal[0].contents, /\/content\/journal-example-\d+.jpg/g).length === 1);
+	t.true(hasPath(work[0].contents, /\/content\/work-example-\d+.jpg/g).length === 1);
+	t.true(hasPath(work[0].contents, /\/content\/work-logo-\d+.png/g).length === 1);
 });

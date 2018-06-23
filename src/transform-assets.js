@@ -17,7 +17,7 @@ const rmrf = promisify(rimraf);
 const transformAssets = (contentDir, asset) => {
 	const paths = [];
 
-	const add = path => paths.push(`${contentDir}/${path}`);
+	const add = p => paths.push(path.join(contentDir, p));
 
 	const found = () => paths.length > 0;
 
@@ -39,15 +39,15 @@ const transformAssets = (contentDir, asset) => {
 	const createFile = async (file, index) => {
 		const {name, ext} = path.parse(paths[index]);
 		const {mtime} = await stat(paths[index]);
-		const subFolderPrefix = paths[index].replace(contentDir, '').replace('assets/', '').split('/').reverse()[1];
+		const subFolderPrefix = paths[index].replace(contentDir, '').replace(`assets${path.sep}`, '').split(path.sep).reverse()[1];
 		const fileName = `${subFolderPrefix ? subFolderPrefix + '-' : ''}${name}-${mtime.getTime()}${ext}`;
-		const filePath = `${asset.output}/content/${fileName}`;
+		const filePath = path.join(asset.output, 'content', fileName);
 
 		await writeFile(filePath, file.data, 'binary');
 
 		return {
 			name: `${name}${ext}`,
-			newPath: `${asset.path}/${fileName}`,
+			newPath: path.join(asset.path, 'content', fileName),
 			prefix: subFolderPrefix || ''
 		};
 	};
