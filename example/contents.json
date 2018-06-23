@@ -2,11 +2,11 @@
   "about": {
     "title": "About",
     "draft": true,
-    "contents": "<h1 id=\"parsed-markdown\">parsed markdown</h1>\n<p><img src=\"/public/example-1523539362515.jpg\" alt=\"\"></p>\n"
+    "contents": "<h1 id=\"parsed-markdown\">parsed markdown</h1>\n<p><img src=\"/public/example-1529762039848.jpg\" alt=\"\"></p>\n"
   },
   "home": {
     "anotherSection": {
-      "contents": "<h1 id=\"hi\">Hi</h1>\n<p>This is another part of the home page…</p>\n<p><img src=\"/public/home-logo-1528511292439.png\" alt=\"\"></p>\n"
+      "contents": "<h1 id=\"hi\">Hi</h1>\n<p>This is another part of the home page…</p>\n<p><img src=\"/public/home-logo-1529762039976.png\" alt=\"\"></p>\n"
     },
     "introduction": {
       "contents": "<p>I help people by creating great <strong>WEBSITES</strong> and <strong>APPLICATIONS</strong>, I do this in\nbeautifully simple, focussed and understandable ways which make sure I consistently create the greatest experiences that exceed desired results.</p>\n<p>See my website at <a href=\"https://danwebb.co\">danwebb.co</a></p>\n"
@@ -24,7 +24,7 @@
     {
       "title": "A Post",
       "createdAt": "01/02/2019",
-      "contents": "<p>content…</p>\n<p><img src=\"/public/journal-example-1528864561942.jpg\" alt=\"\"></p>\n"
+      "contents": "<p>content…</p>\n<p><img src=\"/public/journal-example-1529762039923.jpg\" alt=\"\"></p>\n"
     }
   ]
 }

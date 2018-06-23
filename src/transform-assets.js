@@ -22,8 +22,9 @@ const transformAssets = (contentDir, asset) => {
 	const found = () => paths.length > 0;
 
 	const clean = async () => {
-		await rmrf(`${asset.output}/content`);
-		return mkdir(`${asset.output}/content`);
+		const outputPath = path.join(path.resolve(), asset.output, 'content');
+		await rmrf(outputPath);
+		return mkdir(outputPath);
 	};
 
 	const minify = () => imagemin(paths, '', {
