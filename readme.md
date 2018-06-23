@@ -46,7 +46,7 @@ Using jdown to parse assets is completely optional, but comes with a few benefit
 - Auto minification of image files using [imagemin](https://github.com/imagemin/imagemin)
 - Cache busting - uses the last modified time (mtime) of the asset to change it's file name and avoid the old version of the asset being served
 
-To get started using assets in jdown you can create a `/assets` folder in your contents directory, reference it in your markdown like `![](./assets/my-asset.png)` then specific an existing directory for jdown to put processed assets into using an assets options object like:
+To get started using assets in jdown you can create a `/assets` folder in your contents directory, reference it in your markdown like `![](./assets/my-asset.png)` then specify an existing directory for jdown to put processed assets into using an assets options object like:
 
 ```js
 jdown(

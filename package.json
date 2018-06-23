@@ -18,18 +18,27 @@
 				"content",
 				"static-site"
 		],
-		"main": "src/index.js",
+		"files": [
+				"dist"
+		],
+		"main": "dist/index.js",
 		"license": "MIT",
 		"scripts": {
 				"example": "node example",
 				"example-with-renderer": "node example/with-custom-options.js",
 				"example-without-md-parse": "node example/without-md-parsing.js",
-				"test": "ava"
+				"test": "ava",
+				"build": "./node_modules/.bin/babel src --out-dir dist"
 		},
 		"ava": {
-				"files": [
-						"test/test.js"
-				]
+			"files": [
+				"test/test.js"
+			],
+			"babel": {
+				"testOptions": {
+					"babelrc": false
+				}
+			}
 		},
 		"xo": {
 				"rules": {
@@ -37,6 +46,7 @@
 				}
 		},
 		"dependencies": {
+				"babel-runtime": "6.26.0",
 				"camelcase": "5.0.0",
 				"imagemin": "5.3.1",
 				"imagemin-gifsicle": "5.2.0",
@@ -51,6 +61,10 @@
 		},
 		"devDependencies": {
 				"ava": "1.0.0-beta.4",
+				"babel-cli": "6.26.0",
+				"babel-plugin-transform-object-rest-spread": "6.26.0",
+				"babel-plugin-transform-runtime": "6.23.0",
+				"babel-preset-env": "1.7.0",
 				"marked": "0.3.19",
 				"serve": "6.5.7",
 				"xo": "^0.20"
