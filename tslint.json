@@ -1,0 +1,14 @@
+{
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": [".next", "node_modules/**/*.ts"]
+  },
+  "rules": {
+    "prettier": true,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "member-access": false,
+    "interface-name": [true, "never-prefix"]
+  }
+}

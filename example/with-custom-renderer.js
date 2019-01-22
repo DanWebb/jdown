@@ -1,13 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
-const jdown = require('../src');
+const jdown = require('../dist');
 
 const outputFile = path.join(__dirname, 'contents.json');
 const renderer = new marked.Renderer();
-renderer.link = (href, title, text) => `<a target="_blank" href="${href}" title="${title}">${text}</a>`;
-const options = {renderer, assets: {output: './example/public'}};
+renderer.link = (href, title, text) =>
+  `<a target="_blank" href="${href}" title="${text}">${text}</a>`;
+const options = {markdown: {renderer}, assets: {output: './example/public'}};
 
 jdown('example/content', options).then(content => {
-	fs.writeFileSync(outputFile, JSON.stringify(content, null, 2), 'utf8');
+  fs.writeFileSync(outputFile, JSON.stringify(content, null, 2), 'utf8');
 });
