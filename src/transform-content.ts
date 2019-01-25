@@ -3,7 +3,7 @@ import camelcase from 'camelcase';
 import {Plugin} from 'metalsmith';
 import Files from './types/files';
 
-const removeUnwanted = (files: Files) => {
+export const removeUnwanted = (files: Files) => {
   Object.keys(files).forEach(file => {
     if (file.includes('.DS_Store') || file.includes(`assets${path.sep}`)) {
       delete files[file];
@@ -13,11 +13,12 @@ const removeUnwanted = (files: Files) => {
   return files;
 };
 
-const rename = (files: Files) => {
+export const rename = (files: Files) => {
   Object.keys(files).forEach(file => {
-    const parts = file.split(path.sep) || [];
-    const fileName = camelcase((parts.pop() || '').replace(/.html|.md/, ''));
-    const newFilePath = parts.join(path.sep) + path.sep + fileName;
+    const parts = file.toLowerCase().split(path.sep) || [];
+    const name = camelcase((parts.pop() || '').replace(/\..*/, ''));
+    const folder = parts.length > 0 ? parts.join(path.sep) + path.sep : '';
+    const newFilePath = folder + name;
     files[newFilePath] = files[file];
     delete files[file];
   });
@@ -25,7 +26,7 @@ const rename = (files: Files) => {
   return files;
 };
 
-const populateProperties = (files: Files) => {
+export const populateProperties = (files: Files) => {
   Object.keys(files).forEach(file => {
     delete files[file].mode;
     delete files[file].stats;
@@ -34,13 +35,13 @@ const populateProperties = (files: Files) => {
   return files;
 };
 
-const group = (files: Files) => {
+export const group = (files: Files) => {
   Object.keys(files).forEach(file => {
     const thisFile = {...files[file]};
     const parts = file.split(path.sep) || [];
     const collection = parts[0] === 'collections' && parts[1];
     const section = parts[1] && parts[0];
-    const fileName = parts[1];
+    const fileName = section ? parts[1] : parts[0];
     delete files[file];
 
     if (collection) {
