@@ -26,7 +26,7 @@ export const rename = (files: Files) => {
   return files;
 };
 
-export const populateProperties = (files: Files) => {
+export const formatProperties = (files: Files) => {
   Object.keys(files).forEach(file => {
     delete files[file].mode;
     delete files[file].stats;
@@ -70,7 +70,7 @@ export const group = (files: Files) => {
 const transformContent = () => {
   const transform: Plugin = (files, _, done) => {
     removeUnwanted(files);
-    populateProperties(files);
+    formatProperties(files);
     rename(files);
     group(files);
     return Promise.resolve(done());
