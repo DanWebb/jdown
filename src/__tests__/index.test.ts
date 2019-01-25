@@ -1,20 +1,26 @@
+import anyTest, {TestInterface} from 'ava';
 import fs from 'fs';
 import util from 'util';
-import test from 'ava';
 import marked from 'marked';
-import jdown from '../dist';
+import jdown from '..';
 
 const readDir = util.promisify(fs.readdir);
 
+const test = anyTest as TestInterface<{content: {[index: string]: any}}>;
+
 test.before(async t => {
   const renderer = new marked.Renderer();
-  renderer.heading = (text, level) =>
-    `<h${level} class="a-header">${text}</h${level}>`;
-  t.context.content = await jdown('test/content', {
+
+  renderer.heading = (text, level) => {
+    return `<h${level} class="a-header">${text}</h${level}>`;
+  };
+
+  t.context.content = await jdown('src/__tests__/content', {
     markdown: {renderer},
-    assets: {output: './test/public'}
+    assets: {output: './src/__tests__/public'}
   });
-  return Promise.resolve(true);
+
+  return;
 });
 
 test('Top level files will turned into an object', t => {
@@ -54,18 +60,20 @@ test('Supports custom renderers', t => {
 });
 
 test('Supports disabling markdown parsing', async t => {
-  const content = await jdown('test/content-without-images', {parseMd: false});
+  const content = await jdown('src/__tests__/content-without-images', {
+    parseMd: false
+  });
   t.false(/<[a-z][\s\S]*>/i.test(content.about.contents));
   t.true(content.about.contents.indexOf('#') > -1);
 });
 
 test('Assets are optional', async t => {
-  const content = await jdown('test/content-without-images');
+  const content = await jdown('src/__tests__/content-without-images');
   t.true(/<[a-z][\s\S]*>/i.test(content.about.contents));
 });
 
 test('All assets are created with expected names', async t => {
-  const assets = await readDir('./test/public/content');
+  const assets = await readDir('./src/__tests__/public/content');
   const totalExpectedAssets = 6;
   let actualAssets = 0;
   const logoPng = /logo-\d+.png/;
@@ -93,7 +101,9 @@ test('All assets are created with expected names', async t => {
 
 test('Assets are output with correct file paths', t => {
   const {about, home, journal, work} = t.context.content;
-  const hasPath = (content, path) => content.match(path);
+  const hasPath = (content: string, path: RegExp) => {
+    return content.match(path) || [];
+  };
 
   t.true(hasPath(about.contents, /\/content\/logo-\d+.png/g).length === 1);
   t.true(hasPath(about.contents, /\/content\/logo-\d+.svg/g).length === 1);

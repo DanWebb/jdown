@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
+    "rootDir": "src",
+    "outDir": "dist",
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

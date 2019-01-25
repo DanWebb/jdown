@@ -27,7 +27,9 @@
     "example": "node example",
     "example-with-renderer": "node example/with-custom-renderer.js",
     "example-without-md-parse": "node example/without-md-parsing.js",
-    "test": "ava",
+    "test": "tsc && ava",
+    "test:debug": "tsc && ava --verbose",
+    "test:coverage": "tsc && nyc ava",
     "build": "tsc"
   },
   "husky": {
@@ -37,7 +39,7 @@
   },
   "ava": {
     "files": [
-      "test/test.js"
+      "dist/__tests__/*.test.js"
     ]
   },
   "dependencies": {
@@ -62,12 +64,15 @@
     "@types/marked": "0.6.0",
     "@types/node": "10.12.18",
     "@types/rimraf": "2.0.2",
+    "@types/sinon": "7.0.4",
     "ava": "1.1.0",
     "husky": "1.3.1",
     "lint-staged": "8.1.0",
     "marked": "0.6.0",
+    "nyc": "13.1.0",
     "prettier": "1.16.1",
     "serve": "10.1.1",
+    "sinon": "7.2.3",
     "tslint": "5.12.1",
     "tslint-config-prettier": "1.17.0",
     "tslint-plugin-prettier": "2.0.1",
