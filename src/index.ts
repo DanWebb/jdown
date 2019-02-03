@@ -2,7 +2,7 @@ import path from 'path';
 import util from 'util';
 import metalsmith from 'metalsmith';
 import markdown from 'metalsmith-markdown';
-import {Options} from './types/options';
+import {Options, AssetOptions} from './types/options';
 import transformBufferToString from './transform-buffer-to-string';
 import transformAssets from './transform-assets';
 import transformContent from './transform-content';
@@ -10,6 +10,11 @@ import transformContent from './transform-content';
 const defaultOptions: Options = {
   parseMd: true,
   markdown: {}
+};
+
+const defaultAssetOptions: AssetOptions = {
+  output: `.${path.sep}public`,
+  path: path.sep
 };
 
 /**
@@ -32,7 +37,9 @@ const jdown = (dir: string, options: Options = defaultOptions) => {
   content.use(transformBufferToString());
 
   if (options.assets) {
-    content.use(transformAssets(dir, options.assets));
+    content.use(
+      transformAssets(dir, {...defaultAssetOptions, ...options.assets})
+    );
   }
 
   content.use(transformContent());
