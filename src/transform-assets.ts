@@ -16,19 +16,19 @@ const stat = promisify(fs.stat);
 const writeFile = promisify(fs.writeFile);
 const rmrf = promisify(rimraf);
 
-interface Asset {
+export interface Asset {
   name: string;
   assetPath: string;
   folder: string;
 }
 
-const cleanup = async (outputDirectory: string) => {
+export const cleanup = async (outputDirectory: string) => {
   const dir = path.join(path.resolve(), outputDirectory, 'content');
   await rmrf(dir);
   return mkdir(dir);
 };
 
-const minify = (
+export const minify = (
   paths: string[],
   options: AssetOptions
 ): Promise<imagemin.Result[]> => {
@@ -48,7 +48,7 @@ const minify = (
   return Promise.all(assets);
 };
 
-const assetPaths = (dir: string, files: Files): string[] => {
+export const assetPaths = (dir: string, files: Files): string[] => {
   return Object.keys(files)
     .filter(file => {
       return file.includes(`assets${path.sep}`) && !file.includes('.DS_Store');
@@ -58,9 +58,10 @@ const assetPaths = (dir: string, files: Files): string[] => {
     });
 };
 
-const output = (
+export const output = (
   contentDirectory: string,
   outputDirectory: string,
+  outputPath: string,
   assets: imagemin.Result[]
 ): Promise<Asset[]> => {
   const dir = contentDirectory.split(path.sep).pop();
@@ -74,15 +75,16 @@ const output = (
     const fileName = hasFolder
       ? `${folder}-${name}-${mtime.getTime()}${ext}`
       : `${name}-${mtime.getTime()}${ext}`;
-    const assetPath = path.join(outputDirectory, 'content', fileName);
-    await writeFile(assetPath, asset.data, 'binary');
+    const actualAssetPath = path.join(outputDirectory, 'content', fileName);
+    const assetPath = path.join(outputPath, 'content', fileName);
+    await writeFile(actualAssetPath, asset.data, 'binary');
     return {name: `${name}${ext}`, assetPath, folder};
   });
 
   return Promise.all(outputAssets);
 };
 
-const rewriteAssetPaths = (
+export const rewriteAssetPaths = (
   files: Files,
   assets: Asset[],
   contentDirectory: string
@@ -130,11 +132,17 @@ const rewriteAssetPaths = (
  */
 const transformAssets = (dir: string, options: AssetOptions) => {
   const transform: Plugin = async (files, _, done) => {
-    const outputDirectory = options.output || `.${path.sep}static`;
+    const outputDirectory = options.output as string;
+    const outputPath = options.path as string;
     await cleanup(outputDirectory);
     const paths = assetPaths(dir, files);
     const minifiedAssets = await minify(paths, options);
-    const assets = await output(dir, outputDirectory, minifiedAssets);
+    const assets = await output(
+      dir,
+      outputDirectory,
+      outputPath,
+      minifiedAssets
+    );
     rewriteAssetPaths(files, assets, dir);
     return Promise.resolve(done());
   };

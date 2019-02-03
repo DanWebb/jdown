@@ -24,9 +24,9 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "example": "node example",
-    "example-with-renderer": "node example/with-custom-renderer.js",
-    "example-without-md-parse": "node example/without-md-parsing.js",
+    "example": "tsc && node example",
+    "example-with-renderer": "tsc && node example/with-custom-renderer.js",
+    "example-without-md-parse": "tsc && node example/without-md-parsing.js",
     "test": "tsc && ava",
     "test:debug": "tsc && ava --verbose",
     "test:coverage": "tsc && nyc ava",
