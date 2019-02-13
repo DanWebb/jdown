@@ -29,7 +29,7 @@
     "example-without-md-parse": "tsc && node example/without-md-parsing.js",
     "test": "tsc && ava",
     "test:debug": "tsc && ava --verbose",
-    "test:coverage": "tsc && nyc ava",
+    "test:coverage": "tsc && nyc ava --reporter=text-lcov > coverage.lcov && codecov",
     "build": "tsc"
   },
   "husky": {
@@ -66,6 +66,7 @@
     "@types/rimraf": "2.0.2",
     "@types/sinon": "7.0.4",
     "ava": "1.1.0",
+    "codecov": "3.2.0",
     "husky": "1.3.1",
     "lint-staged": "8.1.0",
     "marked": "0.6.0",

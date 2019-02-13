@@ -1,0 +1,35 @@
+
+  ✔ transform-buffer-to-string › All content buffers are transformed into a string
+  ✔ transform-buffer-to-string › Ignored files do not have their content transformed
+  ✔ transform-content › Unwanted files get removed
+  ✔ transform-content › Files are renamed to follow the JSON naming format
+  ✔ transform-content › Files properties get correctly formatted
+  ✔ transform-content › Files get grouped into sections and collections
+  ✔ transform-content › Content files get correctly transformed
+  ✔ transform-contents › Removing unwanted files
+  ✔ transform-contents › Renaming files
+  ✔ transform-contents › Formatting a files properties
+  ✔ transform-contents › Grouping files
+  ✔ transform-assets › Asset paths are returned correctly
+  ✔ transform-assets › Asset paths in file contents are rewritten to match generated assets
+  ✔ transform-assets › The asset output directory is cleaned (871ms)
+  ✔ transform-assets › Assets with paths are returned from minify (1.5s)
+  ✔ transform-assets › Assets are output and new file path info is returned (1.5s)
+  ✔ index › JSON is generated based on the content files in the directory
+  ✔ index › Markdown is parsed as HTML and output within a contents property
+  ✔ index › Frontmatter is added as properties of the generated objects
+  ✔ index › Custom renderers are supported
+  ✔ index › All assets are created with expected names
+  ✔ index › Disabling markdown parsing is supported
+
+  22 tests passed
+
+-------------------------------|----------|----------|----------|----------|-------------------|
+File                           |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+-------------------------------|----------|----------|----------|----------|-------------------|
+All files                      |      100 |    89.29 |      100 |      100 |                   |
+ index.ts                      |      100 |       80 |      100 |      100 |                29 |
+ transform-assets.ts           |      100 |    90.48 |      100 |      100 |           103,119 |
+ transform-buffer-to-string.ts |      100 |      100 |      100 |      100 |                   |
+ transform-content.ts          |      100 |    88.46 |      100 |      100 |          18,19,41 |
+-------------------------------|----------|----------|----------|----------|-------------------|
