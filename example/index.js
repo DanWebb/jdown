@@ -4,8 +4,6 @@ const jdown = require('../dist');
 
 const outputFile = path.join(__dirname, 'contents.json');
 
-jdown('example/content', {
-  assets: {output: './example/public'}
-}).then(content => {
+jdown('example/content').then(content => {
   fs.writeFileSync(outputFile, JSON.stringify(content, null, 2), 'utf8');
 });

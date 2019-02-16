@@ -1,127 +1,148 @@
 <h1 align="center">
 	<br>
-	<br>
-	<img width="200" src="https://raw.githubusercontent.com/DanWebb/jdown/2b4d38b7c56103a38b74c4c49ad8e6f576744c26/media/logo.png" alt="jdown">
-	<br>
+	<img width="900" src="https://file-tcmlvkdbgm.now.sh/" alt="jdown">
 	<br>
 </h1>
 
-> Convert a directory of markdown files to structured and usable JSON
-
-## Features
-📄 Top level files will be turned into an object  
-📁 Files contained within top level directories will be grouped into an object  
-🗂 Files contained within folders of the collections directory will be turned into an array of objects  
-🖼 Assets will be automatically minified and cache busted  
-🐫 File names will be transformed to [camelCase](https://github.com/sindresorhus/camelcase) and used as property names  
-✍️ Markdown will be parsed as HTML using [Metalsmith Markdown](https://github.com/segmentio/metalsmith-markdown) and output within a `contents` property  
-🕹 Frontmatter will be added as properties of the generated objects.  
-💅 Custom elements can be used in the markdown parsing with renderer options  
-🔧 Markdown parsing can be disabled to just recieve structured JSON containing markdown  
-
-<br>
-<img src="https://raw.githubusercontent.com/DanWebb/jdown/2b4d38b7c56103a38b74c4c49ad8e6f576744c26/media/example.jpg" alt="" width="900">
+If you're creating content in markdown or use a CMS like
+[NetlifyCMS](https://www.netlifycms.org/) which outputs markdown files jdown can
+transform the content into JSON containing HTML at build time ready to be
+consumed within templates.
 
 ## Install
 
 ```console
-$ npm install jdown
+$ npm install jdown --save-dev
 ```
 
-## Usage
+## Basic Usage
+
+<img width="900" src="https://file-oenazxmmfv.now.sh/" alt="Content to JSON">
 
 ```js
 const jdown = require('jdown');
-jdown('path/to/markdown/content').then(content => console.log(content));
+jdown('path/to/content').then(content => console.log(content));
 ```
 
-Where "path/to/markdown/content" is a directory containing markdown files or folders as described under the "Features" header above. The file path will be relative to the project root so if your content was in /Users/username/project/src/content, you would use `jdown('src/content')`.
+Call jdown with the path to your markdown content (relative to the project root)
+and it will convert your content to JSON.
 
-Use the generated JSON however you like, I recommend with a static site generator like [React Static](https://github.com/nozzle/react-static)! This way you can use the markdown files as a CMS and use the JSON in the build stage.
+## Structuring Content
 
-## Placing assets inside the content directory
-Using jdown to parse assets is completely optional, but comes with a few benefits including:
+The structure of the JSON that jdown outputs depends on how files within the
+content folder are structured.
+
+### Top Level Files
+
+Will be turned into a top level object.
+
+<img width="900" src="https://file-idqlisfaef.now.sh/" alt="Top Level Files">
+
+### Folders
+
+Files within Will be turned into objects and grouped under a top level object
+that has the same name as the parent folder (don't go more than one level deep).
+
+<img width="900" src="https://file-uxsybvnpyw.now.sh/" alt="Folders">
+
+### Collections
+
+The collections folder should only contain sub folders, each sub folder will be
+turned into an array of objects. There will be an object for each file in the
+sub folder.
+
+<img width="900" src="https://file-fcczhgecrv.now.sh/" alt="Collections">
+
+### File Contents
+
+YAML frontmatter can be included at the top of any files throughout and it will
+be added to the generated JSON as individual properties.
+
+```md
+---
+title: Example frontmatter
+---
+
+Example Markdown Content
+```
+
+## API
+
+### jdown([path], [options])
+
+#### path
+
+Type: `string`<br> Required
+
+Path to a folder containing markdown files with a folder structure that matches
+the guidelines above. The path should be relative to the project root so if your
+content was in `/Users/username/project/src/content`, you would use
+`jdown('src/content')`.
+
+#### options
+
+Type: `object`
+
+##### markdown
+
+Type: `object`
+
+Options to pass to [marked](https://github.com/markedjs/marked), jdown supports
+[all the available marked options](https://marked.js.org/#/USING_ADVANCED.md#options)
+which can be used to control how the markdown is parsed.
+
+##### assets
+
+Type: `object`
+
+Asset parsing options. Using jdown to parse assets is completely optional, but
+comes with a few benefits including:
 
 - Ability to organise assets alongside markdown content
-- Auto minification of image files using [imagemin](https://github.com/imagemin/imagemin)
-- Cache busting - uses the last modified time (mtime) of the asset to change it's file name and avoid the old version of the asset being served
+- Auto minification of image files using
+  [imagemin](https://github.com/imagemin/imagemin)
+- Cache busting, using the last modified time (mtime) of the asset to change
+  it's file name and avoid the old version of the asset being served
 
-To get started using assets in jdown you can create a `/assets` folder in your contents directory, reference it in your markdown like `![](./assets/my-asset.png)` then specify an existing directory for jdown to put processed assets into using an assets options object like:
-
-```js
-jdown(
-  'path/to/markdown/content',
-  {assets: {output: './example/public'}}
-).then(content => console.log(content));
-```
-
-All static assets must be placed within `/assets` folders. Assets folders can be placed in the top level content directory and/or it's sub directories. Within markdown the assets can then be referenced using `./assets/filename.png`. A couple of examples of potential directory structures can be found below.
-
-**Single assets folder**
-```
-|- contents
-| |- assets 
-| | |- my-asset.png
-| |- collections
-| | |- blog
-| | | |- post.md <- can access ./assets/my-asset.png
-```
-
-**Multiple assets folders**
-```
-|- contents
-| |- assets 
-| | |- my-asset.png
-| |- collections
-| | |- blog
-| | | |- assets
-| | | | |- my-asset.png
-| | | |- post.md <- ./assets/my-asset.png will reference the asset in the blog assets directory
-```
+All static assets must be placed within `/assets` folders. Assets folders can be
+placed in the top level content directory and/or it's sub directories. Within
+the markdown content assets can then be referenced using
+`![](./assets/my-asset.png)` where `my-asset.png` is an asset placed within an
+`/assets` folder.
 
 The assets options object can contain the following properties:
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| output | string | ./public | Directory jdown will output processed assets to |
-| path | string | / | Publically accessible path jdown will prepend to output file names |
-| png | object | `{quality: '65-80'}` | Options to pass into [imagemin-pngquant](https://www.npmjs.com/package/imagemin-pngquant) |
-| jpg | object | undefined | Options to pass into [imagemin-jpegtran](https://www.npmjs.com/package/imagemin-jpegtran) |
-| svg | object | undefined | Options to pass into [imagemin-svgo](https://www.npmjs.com/package/imagemin-svgo) |
-| gif | object | undefined | Options to pass into [imagemin-svgo](https://www.npmjs.com/package/imagemin-svgo)
+| Property | Type   | Default   | Description                                                                               |
+| -------- | ------ | --------- | ----------------------------------------------------------------------------------------- |
+| output   | string | ./public  | Directory jdown will output processed assets to                                           |
+| path     | string | /         | Publically accessible path jdown will prepend to output file names                        |
+| png      | object | undefined | Options to pass into [imagemin-pngquant](https://www.npmjs.com/package/imagemin-pngquant) |
+| jpg      | object | undefined | Options to pass into [imagemin-jpegtran](https://www.npmjs.com/package/imagemin-jpegtran) |
+| svg      | object | undefined | Options to pass into [imagemin-svgo](https://www.npmjs.com/package/imagemin-svgo)         |
+| gif      | object | undefined | Options to pass into [imagemin-svgo](https://www.npmjs.com/package/imagemin-svgo)         |
 
-## Custom render options
+##### parseMd
 
-By default, jdown uses the default [marked](https://github.com/markedjs/marked) render options, but you may pass in your own custom overrides to customize the built html. This can be useful for adding custom ids or CSS classes. In the example below you can see how you can make your links open in a new tab by default, by adding target="\_blank" to anchor tags.
+Type: `boolean`<br> Default: `true`
 
-```js
-const jdown = require('jdown');
-const marked = require('marked');
-const renderer = new marked.Renderer();
-renderer.link = (href, title, text) => `<a target="_blank" href="${href}" title="${title}">${text}</a>`;
-
-jdown('path/to/markdown/content', {renderer}).then(content => console.log(content));
-```
-See the [advanced configurations](https://github.com/markedjs/marked/blob/master/docs/USING_ADVANCED.md) and [extensibility](https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md) sections of the marked documentation for the full list of possible options you may use here.
-
-## Disabling markdown parsing
-
-In some cases you may wish to disable markdown parsing to just recieve structured JSON containing markdown instead of HTML. You can accomplish this using the `parseMd` option like so:
-```js
-jdown('path/to/markdown/content', {parseMd: false}).then(content => console.log(content));
-```
+Set this to false to disable markdown parsing and just recieve structured JSON
+containing markdown instead of HTML.
 
 ## Examples
 
-See the [examples](example/) directory of this repository. To test it yourself clone this repo, install the dependancies with `npm install`, modify some content and run `npm run example`.
+See the [examples](example/) directory of this repository. To test it yourself
+clone this repo, install the dependancies with `npm install`, modify some
+content and run `npm run example`.
 
-[danwebb.co](https://danwebb.co) is built using jdown and [React Static](https://github.com/nozzle/react-static) so see the static.config.js file in the [websites github repo](https://github.com/DanWebb/danwebb.co) for a real world example.
-
-There is also an example built into React Static that you can use to quickly get up and running  [here](https://github.com/nozzle/react-static/tree/master/examples/markdown).
+[danwebb.co](https://danwebb.co) is built using jdown and
+[React Static](https://github.com/nozzle/react-static) so see the
+static.config.js file in the
+[websites github repo](https://github.com/DanWebb/danwebb.co) for a real world
+example.
 
 ## Contributing
 
-Any pull requests are welcome and will be reviewed. Please use `npm run test` to test your changes are working before submitting any changes.
+Any pull requests are welcome and will be reviewed.
 
 ## License
 
