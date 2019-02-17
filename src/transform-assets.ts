@@ -91,7 +91,12 @@ export const rewriteAssetPaths = (
 ) => {
   const dir = contentDirectory.split(path.sep).pop();
 
-  const rewrite = (assetRef: string, folder: string = '', file: string) => {
+  const rewrite = (
+    assetRef: string,
+    folder: string = '',
+    file: string,
+    property: string
+  ) => {
     const name = assetRef.replace('./assets/', '');
     let asset = assets.find(a => a.folder === folder && a.name === name);
 
@@ -101,7 +106,7 @@ export const rewriteAssetPaths = (
     }
 
     if (asset) {
-      return (files[file].contents = files[file].contents.replace(
+      return (files[file][property] = files[file][property].replace(
         assetRef,
         asset.assetPath
       ));
@@ -109,16 +114,18 @@ export const rewriteAssetPaths = (
   };
 
   Object.keys(files).forEach(file => {
-    const content = files[file].contents;
+    Object.keys(files[file]).forEach(property => {
+      const content = files[file][property];
 
-    if (!content.includes('./assets/')) {
-      return;
-    }
+      if (typeof content !== 'string' || !content.includes('./assets/')) {
+        return;
+      }
 
-    const parent = file.split(path.sep).reverse()[1];
-    const folder = parent !== dir ? parent : '';
-    const assetRefs: string[] = content.match(/.\/assets\/.+?(?="|\))/g);
-    assetRefs.forEach(assetRef => rewrite(assetRef, folder, file));
+      const parent = file.split(path.sep).reverse()[1];
+      const folder = parent !== dir ? parent : '';
+      const assetRefs = content.match(/\.\/assets\/.+?(?="|'|\s|$|\))/g) || [];
+      assetRefs.forEach(assetRef => rewrite(assetRef, folder, file, property));
+    });
   });
 
   return files;

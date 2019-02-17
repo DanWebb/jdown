@@ -86,12 +86,13 @@ test('Assets are output and new file path info is returned', async t => {
   rmrf(outputDirectory);
 });
 
-test('Asset paths in file contents are rewritten to match generated assets', async t => {
+test('Asset paths are rewritten to match generated assets', async t => {
   const files = {
     file: {contents: ''},
     fileTwo: {contents: '<img src="./assets/asset.jpg"/>'},
     fileThree: {contents: '![](./assets/asset-two.png)'},
     [path.join('home', 'file')]: {
+      frontmatter: './assets/asset.jpg',
       contents: '![](./assets/asset.jpg)![](./assets/asset-two.png)'
     },
     [path.join('collections', 'collection', 'file')]: {
@@ -115,6 +116,7 @@ test('Asset paths in file contents are rewritten to match generated assets', asy
     fileTwo: {contents: '<img src="rewrote.jpg"/>'},
     fileThree: {contents: '![](rewrote.png)'},
     [path.join('home', 'file')]: {
+      frontmatter: 'home-rewrote.jpg',
       contents: '![](home-rewrote.jpg)![](rewrote.png)'
     },
     [path.join('collections', 'collection', 'file')]: {
