@@ -71,7 +71,7 @@ test('Files get grouped into sections and collections', t => {
 
 test('Content files get correctly transformed', async t => {
   const done = sinon.spy();
-  const transform = transformContent();
+  const transform = transformContent({fileInfo: false});
   const files = {
     'file.md': {contents: '', mode: {}, stats: {}},
     '.DS_Store': {},

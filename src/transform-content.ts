@@ -1,6 +1,7 @@
 import path from 'path';
 import camelcase from 'camelcase';
 import {Plugin} from 'metalsmith';
+import {Options} from './types/options';
 import Files from './types/files';
 
 export const removeUnwanted = (files: Files) => {
@@ -26,8 +27,17 @@ export const rename = (files: Files) => {
   return files;
 };
 
-export const formatProperties = (files: Files) => {
+export const formatProperties = (files: Files, fileInfo: boolean = false) => {
   Object.keys(files).forEach(file => {
+    if (fileInfo) {
+      files[file].fileInfo = {
+        path: file,
+        name: (file.split(path.sep).pop() || '').replace(/\..*/, ''),
+        createdAt: files[file].stats.ctime,
+        modifiedAt: files[file].stats.mtime
+      };
+    }
+
     delete files[file].mode;
     delete files[file].stats;
   });
@@ -67,10 +77,10 @@ export const group = (files: Files) => {
  *
  * @returns A metalsmith Plugin
  */
-const transformContent = () => {
+const transformContent = (options: Options) => {
   const transform: Plugin = (files, _, done) => {
     removeUnwanted(files);
-    formatProperties(files);
+    formatProperties(files, options.fileInfo);
     rename(files);
     group(files);
     return Promise.resolve(done());

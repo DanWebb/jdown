@@ -7,6 +7,7 @@ renderer.heading = (text, level) =>
   `<h${level} class="heading">${text}</h${level}>`;
 
 jdown('example/content', {
+  fileInfo: true,
   markdown: {renderer},
   assets: {output: 'example/public', path: '/'}
 }).then(content => console.log(content));

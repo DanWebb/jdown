@@ -9,6 +9,7 @@ import transformContent from './transform-content';
 
 const defaultOptions: Options = {
   parseMd: true,
+  fileInfo: false,
   markdown: {}
 };
 
@@ -42,7 +43,7 @@ const jdown = (dir: string, options: Options = defaultOptions) => {
     );
   }
 
-  content.use(transformContent());
+  content.use(transformContent(options));
 
   const process = util.promisify(content.process.bind(content));
   return process();

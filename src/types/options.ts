@@ -57,4 +57,11 @@ export interface Options {
    * @default true
    */
   parseMd?: boolean;
+
+  /**
+   * Include file info in the output JSON
+   *
+   * @default false
+   */
+  fileInfo?: boolean;
 }

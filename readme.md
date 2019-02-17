@@ -1,5 +1,4 @@
 <h1 align="center">
-	<br>
 	<img width="900" src="https://file-tcmlvkdbgm.now.sh/" alt="jdown">
 	<br>
 </h1>
@@ -126,8 +125,15 @@ The assets options object can contain the following properties:
 
 Type: `boolean`<br> Default: `true`
 
-Set this to false to disable markdown parsing and just recieve structured JSON
+Set this to `false` to disable markdown parsing and just recieve structured JSON
 containing markdown instead of HTML.
+
+##### fileInfo
+
+Type: `boolean`<br> Default: `false`
+
+Set this to `true` to include file info objects in the output JSON which contain
+the files path, name, created at date and modified at date.
 
 ## Examples
 
