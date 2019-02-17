@@ -1,9 +1,12 @@
-const fs = require('fs');
-const path = require('path');
 const jdown = require('../dist');
+const marked = require('marked');
 
-const outputFile = path.join(__dirname, 'contents.json');
+// See https://marked.js.org/#/USING_PRO.md#renderer
+const renderer = new marked.Renderer();
+renderer.heading = (text, level) =>
+  `<h${level} class="heading">${text}</h${level}>`;
 
-jdown('example/content').then(content => {
-  fs.writeFileSync(outputFile, JSON.stringify(content, null, 2), 'utf8');
-});
+jdown('example/content', {
+  markdown: {renderer},
+  assets: {output: 'example/public', path: '/'}
+}).then(content => console.log(content));

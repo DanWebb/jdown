@@ -40,8 +40,9 @@ Will be turned into a top level object.
 
 ### Folders
 
-Files within Will be turned into objects and grouped under a top level object
-that has the same name as the parent folder (don't go more than one level deep).
+Files within folders will be turned into objects and grouped under a top level
+object that has the same name as the parent folder (don't go more than one level
+deep).
 
 <img width="900" src="https://file-uxsybvnpyw.now.sh/" alt="Folders">
 
@@ -130,15 +131,19 @@ containing markdown instead of HTML.
 
 ## Examples
 
-See the [examples](example/) directory of this repository. To test it yourself
-clone this repo, install the dependancies with `npm install`, modify some
-content and run `npm run example`.
+The [example](example/) directory of this repository contains use of jdown
+including asset parsing and custom [marked](https://github.com/markedjs/marked)
+render options.
 
-[danwebb.co](https://danwebb.co) is built using jdown and
-[React Static](https://github.com/nozzle/react-static) so see the
-static.config.js file in the
-[websites github repo](https://github.com/DanWebb/danwebb.co) for a real world
-example.
+### In The Wild
+
+- [danwebb.co](https://danwebb.co)
+  ([source](https://github.com/DanWebb/danwebb.co)) is built using jdown and
+  [React Static](https://github.com/nozzle/react-static). See the
+  [static.config.js file](https://github.com/DanWebb/danwebb.co/blob/master/static.config.js)
+  for a real world example.
+- If you have an example please share by submitting a pull request to add it to
+  this list so others can learn from it.
 
 ## Contributing
 
