@@ -11,10 +11,10 @@
   ✔ transform-contents › Formatting a files properties
   ✔ transform-contents › Grouping files
   ✔ transform-assets › Asset paths are returned correctly
-  ✔ transform-assets › Asset paths in file contents are rewritten to match generated assets
-  ✔ transform-assets › The asset output directory is cleaned (871ms)
-  ✔ transform-assets › Assets with paths are returned from minify (1.5s)
-  ✔ transform-assets › Assets are output and new file path info is returned (1.5s)
+  ✔ transform-assets › Asset paths are rewritten to match generated assets
+  ✔ transform-assets › The asset output directory is cleaned (685ms)
+  ✔ transform-assets › Assets with paths are returned from minify (1.7s)
+  ✔ transform-assets › Assets are output and new file path info is returned (1.8s)
   ✔ index › JSON is generated based on the content files in the directory
   ✔ index › Markdown is parsed as HTML and output within a contents property
   ✔ index › Frontmatter is added as properties of the generated objects
@@ -27,9 +27,9 @@
 -------------------------------|----------|----------|----------|----------|-------------------|
 File                           |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
 -------------------------------|----------|----------|----------|----------|-------------------|
-All files                      |      100 |    89.29 |      100 |      100 |                   |
- index.ts                      |      100 |       80 |      100 |      100 |                29 |
- transform-assets.ts           |      100 |    90.48 |      100 |      100 |           103,119 |
+All files                      |    98.15 |    84.62 |      100 |    98.06 |                   |
+ index.ts                      |      100 |       80 |      100 |      100 |                30 |
+ transform-assets.ts           |    97.65 |       88 |      100 |    97.44 |             33,36 |
  transform-buffer-to-string.ts |      100 |      100 |      100 |      100 |                   |
- transform-content.ts          |      100 |    88.46 |      100 |      100 |          18,19,41 |
+ transform-content.ts          |    97.83 |    80.65 |      100 |    97.83 |                33 |
 -------------------------------|----------|----------|----------|----------|-------------------|

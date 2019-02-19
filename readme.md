@@ -3,6 +3,9 @@
 	<br>
 </h1>
 
+[![Build Status](https://travis-ci.org/DanWebb/jdown.svg?branch=master)](https://travis-ci.org/DanWebb/jdown)
+[![Node Version](https://img.shields.io/badge/node-%3E=8-blue.svg)](https://img.shields.io/badge/node-%3E=8-blue.svg)
+
 If you're creating content in markdown or use a CMS like
 [NetlifyCMS](https://www.netlifycms.org/) which outputs markdown files jdown can
 transform the content into JSON containing HTML at build time ready to be
