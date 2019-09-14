@@ -4,6 +4,7 @@ import {promisify} from 'util';
 import {Plugin} from 'metalsmith';
 import imagemin from 'imagemin';
 import rimraf from 'rimraf';
+import makedir from 'make-dir';
 import imageminPngquant from 'imagemin-pngquant';
 import imageminJpegtran from 'imagemin-jpegtran';
 import imageminGifsicle from 'imagemin-gifsicle';
@@ -11,10 +12,8 @@ import imageminSvgo from 'imagemin-svgo';
 import {AssetOptions} from './types/options';
 import Files from './types/files';
 
-const mkdir = promisify(fs.mkdir);
 const stat = promisify(fs.stat);
 const writeFile = promisify(fs.writeFile);
-const access = promisify(fs.access);
 const rmrf = promisify(rimraf);
 
 export interface Asset {
@@ -25,19 +24,8 @@ export interface Asset {
 
 export const cleanup = async (outputDirectory: string) => {
   const dir = path.join(path.resolve(), outputDirectory, 'content');
-
-  try {
-    await access(outputDirectory, fs.constants.F_OK);
-  } catch (err) {
-    // tslint:disable-next-line
-    console.warn(`
-      Warning: The asset output directory ${outputDirectory} did not exist so jdown created it.
-    `);
-    await mkdir(path.join(path.resolve(), outputDirectory));
-  }
-
   await rmrf(dir);
-  return mkdir(dir);
+  return makedir(dir);
 };
 
 export const minify = (
