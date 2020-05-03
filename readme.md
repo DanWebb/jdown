@@ -104,8 +104,8 @@ comes with a few benefits including:
 - Ability to organise assets alongside markdown content
 - Auto minification of image files using
   [imagemin](https://github.com/imagemin/imagemin)
-- Cache busting, using the last modified time (mtime) of the asset to change
-  its file name and avoid the old version of the asset being served
+- Cache busting, using the last modified time (mtime) of the asset to change its
+  file name and avoid the old version of the asset being served
 
 All static assets must be placed within `/assets` folders. Assets folders can be
 placed in the top level content directory and/or it's sub directories. Within
