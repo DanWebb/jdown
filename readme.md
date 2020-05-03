@@ -144,16 +144,6 @@ The [example](example/) directory of this repository contains use of jdown
 including asset parsing and custom [marked](https://github.com/markedjs/marked)
 render options.
 
-### In The Wild
-
-- [danwebb.co](https://danwebb.co)
-  ([source](https://github.com/DanWebb/danwebb.co)) is built using jdown and
-  [React Static](https://github.com/nozzle/react-static). See the
-  [static.config.js file](https://github.com/DanWebb/danwebb.co/blob/master/static.config.js)
-  for a real world example.
-- If you have an example please share by submitting a pull request to add it to
-  this list so others can learn from it.
-
 ## Contributing
 
 Any pull requests are welcome and will be reviewed.
