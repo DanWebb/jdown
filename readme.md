@@ -1,15 +1,7 @@
-<h1 align="center">
-	<img width="900" src="https://file-tcmlvkdbgm.now.sh/" alt="jdown">
-	<br>
-</h1>
-
 [![Build Status](https://travis-ci.org/DanWebb/jdown.svg?branch=master)](https://travis-ci.org/DanWebb/jdown)
 [![Node Version](https://img.shields.io/badge/node-%3E=8-blue.svg)](https://img.shields.io/badge/node-%3E=8-blue.svg)
 
-If you're creating content in markdown or use a CMS like
-[NetlifyCMS](https://www.netlifycms.org/) which outputs markdown files jdown can
-transform the content into JSON containing HTML at build time ready to be
-consumed within templates.
+If you're creating content in markdown or use a CMS like [NetlifyCMS](https://www.netlifycms.org/) which outputs markdown files, jdown can transform the content into JSON containing HTML at build time, ready to be consumed within templates.
 
 ## Install
 
@@ -19,47 +11,32 @@ $ npm install jdown --save-dev
 
 ## Basic Usage
 
-<img width="900" src="https://file-oenazxmmfv.now.sh/" alt="Content to JSON">
-
 ```js
 const jdown = require('jdown');
 jdown('path/to/content').then(content => console.log(content));
 ```
 
-Call jdown with the path to your markdown content (relative to the project root)
-and it will convert your content to JSON.
+Call jdown with the path to your markdown content (relative to the project root) and it will convert your content to JSON.
 
 ## Structuring Content
 
-The structure of the JSON that jdown outputs depends on how files within the
-content folder are structured.
+The structure of the JSON that jdown outputs depends on how files within the content folder are structured.
 
-### Top Level Files
+### 📄 Files
 
-Will be turned into a top level object.
+Will be turned into an object, file objects will always contain a `contents` and `fileInfo` property...
 
-<img width="900" src="https://file-idqlisfaef.now.sh/" alt="Top Level Files">
+### 📂 Files within folders
 
-### Folders
+Will be turned into individual objects then grouped within a parent object that has the same name as the parent folder (don't go more than one level deep).
 
-Files within folders will be turned into objects and grouped under a top level
-object that has the same name as the parent folder (don't go more than one level
-deep).
+### 🗄 Collections
 
-<img width="900" src="https://file-uxsybvnpyw.now.sh/" alt="Folders">
+To generate arrays of file objects a folder named "collections" can be created. The collections folder should only contain sub folders, each then each file within a sub folder will be added to an array of objects.
 
-### Collections
+### 📝 File Contents
 
-The collections folder should only contain sub folders, each sub folder will be
-turned into an array of objects. There will be an object for each file in the
-sub folder.
-
-<img width="900" src="https://file-fcczhgecrv.now.sh/" alt="Collections">
-
-### File Contents
-
-YAML frontmatter can be included at the top of any files throughout and it will
-be added to the generated JSON as individual properties.
+YAML frontmatter can be included at the top of any files throughout and it will be added to the generated JSON as individual properties.
 
 ```md
 ---
@@ -77,10 +54,7 @@ Example Markdown Content
 
 Type: `string`<br> Required
 
-Path to a folder containing markdown files with a folder structure that matches
-the guidelines above. The path should be relative to the project root so if your
-content was in `/Users/username/project/src/content`, you would use
-`jdown('src/content')`.
+Path to a folder containing markdown files with a folder structure that matches the guidelines above. The path should be relative to the project root so if your content was in `/Users/username/project/src/content`, you would use `jdown('src/content')`.
 
 #### options
 
@@ -90,28 +64,19 @@ Type: `object`
 
 Type: `object`
 
-Options to pass to [marked](https://github.com/markedjs/marked), jdown supports
-[all the available marked options](https://marked.js.org/#/USING_ADVANCED.md#options)
-which can be used to control how the markdown is parsed.
+Options to pass to [marked](https://github.com/markedjs/marked), jdown supports [all the available marked options](https://marked.js.org/#/USING_ADVANCED.md#options) which can be used to control how the markdown is parsed.
 
 ##### assets
 
 Type: `object`
 
-Asset parsing options. Using jdown to parse assets is completely optional, but
-comes with a few benefits including:
+Asset parsing options. Using jdown to parse assets is completely optional, but comes with a few benefits including:
 
 - Ability to organise assets alongside markdown content
-- Auto minification of image files using
-  [imagemin](https://github.com/imagemin/imagemin)
-- Cache busting, using the last modified time (mtime) of the asset to change its
-  file name and avoid the old version of the asset being served
+- Auto minification of image files using [imagemin](https://github.com/imagemin/imagemin)
+- Cache busting, using the last modified time (mtime) of the asset to change its file name and avoid the old version of the asset being served
 
-All static assets must be placed within `/assets` folders. Assets folders can be
-placed in the top level content directory and/or it's sub directories. Within
-the markdown content assets can then be referenced using
-`![](./assets/my-asset.png)` where `my-asset.png` is an asset placed within an
-`/assets` folder.
+All static assets must be placed within `/assets` folders. Assets folders can be placed in the top level content directory and/or it's sub directories. Within the markdown content assets can then be referenced using `![](./assets/my-asset.png)` where `my-asset.png` is an asset placed within an `/assets` folder.
 
 The assets options object can contain the following properties:
 
@@ -128,21 +93,17 @@ The assets options object can contain the following properties:
 
 Type: `boolean`<br> Default: `true`
 
-Set this to `false` to disable markdown parsing and just recieve structured JSON
-containing markdown instead of HTML.
+Set this to `false` to disable markdown parsing and just recieve structured JSON containing markdown instead of HTML.
 
 ##### fileInfo
 
 Type: `boolean`<br> Default: `false`
 
-Set this to `true` to include file info objects in the output JSON which contain
-the files path, name, created at date and modified at date.
+Set this to `true` to include file info objects in the output JSON which contain the files path, name, created at date and modified at date.
 
 ## Examples
 
-The [example](example/) directory of this repository contains use of jdown
-including asset parsing and custom [marked](https://github.com/markedjs/marked)
-render options.
+The [example](example/) directory of this repository contains use of jdown including asset parsing and custom [marked](https://github.com/markedjs/marked) render options.
 
 ## Contributing
 
